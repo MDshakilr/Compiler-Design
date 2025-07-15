@@ -1,0 +1,5 @@
+int age;
+float salary;
+string studentName;
+void calculateTotal();
+
