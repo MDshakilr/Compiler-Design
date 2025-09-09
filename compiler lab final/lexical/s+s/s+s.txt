@@ -1,0 +1,86 @@
+#include bitsstdc++.h
+using namespace std;
+
+ Function to check type compatibility
+void checkType(string type1, string op, string type2) {
+    if (type1 != type2) {
+        cout  Type error   type1     op     type2  endl;
+    } else {
+        cout  Type correct   type1     op     type2  endl;
+    }
+}
+
+ Function to check balanced parenthesesbracketsbraces
+bool isBalanced(const string &expression) {
+    stackchar s;
+    for (char ch  expression) {
+        if (ch == '('  ch == '['  ch == '{') {
+            s.push(ch);
+        } else if (ch == ')'  ch == ']'  ch == '}') {
+            if (s.empty()) return false;
+            char top = s.top(); s.pop();
+            if ((ch == ')' && top != '(') 
+                (ch == ']' && top != '[') 
+                (ch == '}' && top != '{')) {
+                return false;
+            }
+        }
+    }
+    return s.empty();
+}
+
+ Simple function to extract typeoperatortype from statements like int + int;
+void analyzeStatement(const string &line) {
+    string type1, type2, op;
+    stringstream ss(line);
+    ss  type1  op  type2;
+
+     Remove trailing ';' from type2 if exists
+    if (!type2.empty() && type2.back() == ';') {
+        type2.pop_back();
+    }
+
+    checkType(type1, op, type2);
+}
+
+int main() {
+    ifstream file(input.txt);
+    if (!file) {
+        cout  Error Could not open file!  endl;
+        return 1;
+    }
+
+    string input, line;
+    while (getline(file, line)) {
+        if (!line.empty()) {
+            input += line + n;
+        }
+    }
+    file.close();
+
+     Remove trailing spacesnewlines
+    while (!input.empty() && isspace(input.back())) {
+        input.pop_back();
+    }
+
+     Check for semicolon
+    if (!input.empty() && input.back() != ';') {
+        cout  Missing ';' at the end  endl;
+        return 1;
+    }
+
+     Check for balanced brackets
+    if (!isBalanced(input)) {
+        cout  Syntax error brackets not balanced  endl;
+        return 1;
+    }
+
+     Analyze each line for type correctness
+    stringstream ss(input);
+    while (getline(ss, line)) {
+        if (!line.empty())
+            analyzeStatement(line);
+    }
+
+    return 0;
+}

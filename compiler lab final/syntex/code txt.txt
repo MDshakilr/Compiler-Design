@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    string input;
+    getline(cin, input);  // take full line input
+
+    int size = input.length();
+
+    if (input[size - 1] == ';')
+    {
+        cout << "Syntax is correct";
+    }
+    else
+    {
+        cout << "Syntax error";
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    ifstream fin("input.txt"); // ফাইল ওপেন করো
+    if (!fin)
+    {
+        cerr << "Error: Could not open input.txt" << endl;
+        return 1;
+    }
+
+    string input;
+    while (getline(fin, input))  // ফাইল থেকে এক লাইন করে পড়া
+    {
+        int size = input.length();
+        if (size > 0 && input[size - 1] == ';')
+            cout << "Syntax is correct: " << input << endl;
+        else
+            cout << "Syntax error: " << input << endl;
+    }
+
+    fin.close();
+    return 0;
+}
